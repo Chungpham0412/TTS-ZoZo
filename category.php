@@ -25,15 +25,15 @@ $product= mysqli_query($connection, "SELECT * FROM product WHERE status = 1 AND 
 											<img alt="" class="img-responsive" src="uploads/<?php echo $p['image'] ?>">
 										</div>
 										<?php if($p['sale_price']==0) :?>
-										<div class="product-thumb-info-content" style="height: 30px">
-											<span class="price pull-right" style="text-decoration: none"><?php echo $p['price']." "."VNĐ" ; ?></span>
+										<div class="product-thumb-info-content" style="height: 50px">
+											<span class="price pull-right" style="text-decoration: none"><?php echo $p['price']." "."đ" ; ?></span>
 											<h4><a href="product_detail.php?id=<?php echo $p['id']?>"><?php echo $p['name'] ?></a></h4>
 										</div>
 										<?php elseif ($p['sale_price']>0) :?>
-										<div class="product-thumb-info-content" style="height: 30px">
-											<span class="price_ pull-right" style="text-decoration: line-through"><?php echo $p['price']." "."VNĐ" ; ?></span>
+										<div class="product-thumb-info-content" style="height: 50px">
+											<span class="price_ pull-right" style="text-decoration: line-through"><?php echo $p['price']." "."đ" ; ?></span>
 											<h4><a href="product_detail.php?id=<?php echo $p['id']?>"><?php echo $p['name'] ?></a></h4>
-											<span class="item-cat"><small><a href="#">Giá khuyến mãi </a> </small> <span class="price pull-right"><?php echo $p['sale_price']." "."VNĐ" ?></span></span>
+											<span class="item-cat"><small><a href="#">Giá khuyến mãi </a> </small> <span class="price pull-right"><?php echo $p['sale_price']." "."đ" ?></span></span>
 										</div>
 										
 									<?php endif; ?>

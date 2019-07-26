@@ -84,13 +84,7 @@
 											</select>
 										</div>
 									</li>
-
-									<?php 
-
-									?>
-
 								</ul>
-
 								<ul>
 									<div class="quantity pull-left">
 										<input type="hidden" name="id" value="<?php echo $id;?>" >
@@ -119,7 +113,6 @@
 										</div>
 									</div>
 								</div>
-								
 							</div>
 
 						</div>

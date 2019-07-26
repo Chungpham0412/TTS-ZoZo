@@ -37,13 +37,22 @@
 							<form action="handling_cart.php" method="GET">
 								<input name="id" type="hidden" value="<?php echo $c['id'] ?>">
 								<input name="action" type="hidden" value="update">
+								<input name="sizeBuy" type="hidden" value="<?php echo $c['sizeBuy'] ?>">
+								<input name="colorBuy" type="hidden" value="<?php echo $c['colorBuy'] ?>">
 								<input name="quantity" class="input-text qty" value="<?php echo $c['quantity']?>">
 								<input type="submit" name="" value="cập nhập">
 							</form>
 						</td>
 						<td><?php echo number_format( $c['price']*$c['quantity']) ?>đ</td>
 						<td>
-							<a href="delete_cart.php?id=<?php echo $c['id'] ?>" class="btn btn-xs btn-success">Xóa</a>
+						<form action="handling_cart.php" method="GET">
+								<input name="id" type="hidden" value="<?php echo $c['id'] ?>">
+								<input name="action" type="hidden" value="xoa">
+								<input name="sizeBuy" type="hidden" value="<?php echo $c['sizeBuy'] ?>">
+								<input name="colorBuy" type="hidden" value="<?php echo $c['colorBuy'] ?>">
+							
+								<input type="submit" name="" value="xóa">
+							</form>
 						</td>
 					</tr>
 				<?php $n++; endforeach; endif;?>

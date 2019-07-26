@@ -10,7 +10,7 @@
 				<thead>
 					<?php 
 						$account_id = $_SESSION['login']['id'];
-						$sqlJoin = "SELECT orders.id, orders.created, orders.status, SUM(order_detail.price*order_detail.quantity) as 'total' FROM orders JOIN order_detail ON orders.id = order_detail.order_id WHERE orders.account_id = $account_id GROUP BY  orders.id, orders.created, orders.status";
+						$sqlJoin = "SELECT orders.id, orders.created, orders.status, SUM(order_detail.price*order_detail.quantity) as 'total' FROM orders JOIN order_detail ON orders.id = order_detail.order_id WHERE orders.account_id = $account_id GROUP BY  orders.id DESC, orders.created, orders.status";
 						$orders = mysqli_query($connection,$sqlJoin);
 					?>
 					<tr>
@@ -46,4 +46,4 @@
 		</div>
 	</div>
 </div>
-<?php include "footer_cart.php" ?>
+<?php include "footer_cart.php"?>

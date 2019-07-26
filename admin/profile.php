@@ -36,10 +36,10 @@ $id = $_SESSION['login_admin']['id'];
                      <td>Địa chỉ</td>
                      <td><?php echo $row['address'] ?></td>
                    </tr>
-                   <tr>
+<!--                    <tr>
                      <td>password</td>
-                     <td><?php echo $row['password'] ?></td>
-                   </tr>
+                     <td><?php //echo $row['password'] ?></td>
+                   </tr> -->
              </table>
                <br>
                    <a href="profile_edit.php" class="btn btn-default">Sửa thông tin</a>

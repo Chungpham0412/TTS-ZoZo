@@ -32,23 +32,25 @@
 						}
 							if($a){
 								// echo "Bạn đã đặt hàng thành công. Cảm ơn bạn đã tin tưởng Flatize Shop.";
-								//Sẽ thực hiện gửi mail
-								include "email.php";
-								if(sentMail($od['email'],$od['name'],$html)){
-									unset($_SESSION['cart']);
-									// echo "<script type='text/javascript'>alert('Bạn đã đặt hàng thành công. Cảm ơn bạn đã tin tưởng Flatize Shop.');</script>";
-									// echo "<script type='text/javascript'><div>OnClick='return confirm('blah blah');</div></script>";
-									header('location: index.php');
-								}else{
-									echo "Gửi mail không thành công";
-								}
-									//Chuyển hướng về trang cảm ơn ♥
 
 							}else{
 								echo "Đặt hàng không thành công. Xin vui lòng thử lại!";
 							}
+								//Sẽ thực hiện gửi mail
+								include "email.php";
+								if(sentMail($od['email'],$od['name'],$html)){
+									unset($_SESSION['cart']);
+									echo "<script type='text/javascript'>alert('Bạn đã đặt hàng thành công. Cảm ơn bạn đã tin tưởng Flatize Shop.');
+									window.location.assign('http://localhost/%C4%90%E1%BB%93%20%C3%81n%20PHP/index.php');
+									</script>";
+									// echo "<script type='text/javascript'><div>OnClick='return confirm('blah blah');</div></script>";
+									// header('location: index.php');
+								}else{
+									echo "Gửi mail không thành công";
+								}
+									//Chuyển hướng về trang cảm ơn ♥
 					}
-									echo "<script >confirm('Do you like freetuts.net');</script>";
+									// echo "<script >confirm('Do you like freetuts.net');</script>";
 				}
 			?>
 

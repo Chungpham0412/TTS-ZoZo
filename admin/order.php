@@ -24,7 +24,7 @@
          <table class="table table-hover">
         <thead>
           <?php 
-            $sqlJoin = "SELECT orders.id, orders.created, orders.status, SUM(order_detail.price*order_detail.quantity) as 'total' FROM orders JOIN order_detail ON orders.id = order_detail.order_id GROUP BY  orders.id, orders.created, orders.status";
+            $sqlJoin = "SELECT orders.id, orders.created, orders.status, SUM(order_detail.price*order_detail.quantity) as 'total' FROM orders JOIN order_detail ON orders.id = order_detail.order_id GROUP BY  orders.id DESC, orders.created, orders.status";
             $orders = mysqli_query($connection,$sqlJoin);
           ?>
           <tr>
