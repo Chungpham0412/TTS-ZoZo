@@ -18,7 +18,15 @@
     <section class="content-header">
       <h1>Quản lý account</h1>
     </section>
-
+    <?php 
+      if (in_array("add_ac", $decode)) {
+        // echo "Trong mảng có chứa freetuts.net";
+      }else{
+        echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+        window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+        </script>";
+      }
+    ?>
     <!-- Main content -->
     <section class="content">
 

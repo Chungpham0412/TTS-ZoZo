@@ -7,7 +7,6 @@
     $row1 = mysqli_fetch_assoc($quanAccount);
     $row2 = mysqli_fetch_assoc($quanPrice);
     $row3 = mysqli_fetch_assoc($quanProduct);
-
 ?>
   <!-- Left side column. contains the sidebar -->
   <!-- =============================================== -->
@@ -18,6 +17,20 @@
       <?php 
        if(isset($_SESSION['login_admin'])){
         $admin = $_SESSION['login_admin'];
+        // print_r($admin['level']);
+        $id = $admin['level'];
+        $sql = mysqli_query($connection,"SELECT * FROM permission WHERE id = $id");
+        // $per=[];
+        foreach ($sql as $value) {
+          // print_r($value['permissions']);
+          // $per[]=json_decode($value['permissions'],true);
+          $decode=json_decode($value['permissions'],true);
+        }
+        // print_r($sql);
+        //   echo "<pre>";
+        // print_r($decode);
+        //   // print_r($per);
+        //   echo "</pre>";
        }
       ?>
       <h1>

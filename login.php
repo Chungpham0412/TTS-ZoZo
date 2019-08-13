@@ -14,7 +14,7 @@
 			}
 			if (!$errors) {
 				//Lấy tài khoản theo Email
-			$sql_email=mysqli_query($connection,"SELECT * FROM account WHERE email = '$email' AND level = 0 ");
+			$sql_email=mysqli_query($connection,"SELECT * FROM account WHERE email = '$email' AND level = 19 ");
 				if(mysqli_num_rows($sql_email)==1) {
 					$row= mysqli_fetch_assoc($sql_email);
 					$check = password_verify($password,$row['password']);
@@ -74,7 +74,7 @@
 			</div>
 	
 				<div class="text-right p-t-8 p-b-31">
-					<a href="#">
+					<a href="forgot_pass.php">
 						Quên mật khẩu?
 					</a>
 				</div>

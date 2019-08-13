@@ -1,7 +1,7 @@
   <?php
   include "header_admin.php";
 
- $accounts=mysqli_query($connection,"SELECT * FROM account WHERE level = 1" );
+ $accounts=mysqli_query($connection,"SELECT * FROM account WHERE level != 0" );
    if(isset($_POST["SubmitSearch"])){
     $search = $_POST["search"];
     $sqli_1 = mysqli_query($connection,"SELECT * FROM account WHERE level = 1 AND name LIKE '%$search%'");
@@ -42,18 +42,30 @@
                 <th>Tên người dùng</th>
                 <th>Email</th>
                 <th>Số điện thoại</th>
+                <th>Cấp bậc</th>
                 <th>Địa chỉ</th>
                 <th>Ngày tạo</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
+            <?php $a = " "; ?>
             <?php foreach($accounts as $acc) { ?>
+
               <tr>
                 <td><?php echo $acc['id'] ?></td>
                 <td><?php echo $acc['name'] ?></td>
                 <td><?php echo $acc['email'] ?></td>
                 <td><?php echo $acc['phone'] ?></td>
+                <td>
+                  <?php  $a = $acc['level'];
+          $nam= mysqli_query($connection,"SELECT * FROM `permission` WHERE id = $a");
+          foreach ($nam as $va) {
+            // $va['name'];
+            echo( $va['name']);
+          }
+                 ?>
+                 </td>
                 <td><?php echo $acc['address'] ?></td>
                 <td><?php echo $acc['created'] ?></td>
                 <td>

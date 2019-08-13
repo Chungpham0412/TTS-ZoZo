@@ -1,6 +1,6 @@
   <?php 
   include "header_admin.php";
-   $cate = mysqli_query($connection,"SELECT * FROM category WHERE parent_id = 0");
+   $cate = mysqli_query($connection,"SELECT * FROM category where id != parent_id");
  ?>
 
   
@@ -9,7 +9,15 @@
     <section class="content-header">
       <h1>Sửa danh mục</h1>
     </section>
-
+    <?php 
+      if (in_array("edit_cate", $decode)) {
+        // echo "Trong mảng có chứa freetuts.net";
+      }else{
+        echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+        window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+        </script>";
+      }
+    ?>
     <!-- Main content -->
     <section class="content">
 
@@ -31,7 +39,7 @@
           $status=$_POST['status'];
 
 
-          $sql_1 = "UPDATE `category` SET name = '$name',parent_id='$parent_id',ordering=$ordering,status=$status WHERE id = $id";
+          $sql_1 = "UPDATE `category` SET name = '$name',parent_id='$parent_id',ordering=$ordering,status=$status WHERE id = $id AND id != parent_id";
           $res = mysqli_query($connection,$sql_1);
           if ( $res) {
             header('location:DS_category.php');

@@ -8,6 +8,15 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>Thêm mới thuộc tính</h1>
+      <?php 
+        if (in_array("add_attr", $decode)) {
+          // echo "Trong mảng có chứa freetuts.net";
+        }else{
+          echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+          window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+          </script>";
+        }
+      ?>
     </section>
 
     <!-- Main content -->

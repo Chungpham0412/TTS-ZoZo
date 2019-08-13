@@ -2,11 +2,8 @@
 session_start();
 ob_start();
 include "config/cart-function.php";
-include "config/function_sent_mail.php";
+// include "config/function_sent_mail.php";
 // include '../Mailler/PHPMailerAutoload.php'
- $man = mysqli_query($connection, "SELECT * FROM category WHERE parent_id = 1 AND status = 1");
- $woman = mysqli_query($connection, "SELECT * FROM category WHERE parent_id = 2 AND status = 1");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,26 +103,31 @@ include "config/function_sent_mail.php";
 								
 							</li>
 						</ul>
+				        <?php 
+				          $cate = mysqli_query($connection,"SELECT * FROM `category`");
+				          $categoty=array();
+				          // $ca = mysqli_fetch_assoc($cate);
+				          while ($row = mysqli_fetch_assoc($cate)) {
+				            $categoty[]=$row;
+				          }
+				          function dequy($categoty,$parent_id=0,$text=""){
+				          foreach ($categoty as $key => $value) {
+				            if($value['parent_id']==$parent_id){
+				             echo '<li><a href="category.php?id='.$value['id'].'">';
+				                echo $text . $value['name']; 
+				              echo '</a></li>';
+				              $id = $value['id'];
+				              unset($categoty[$key]);
+				              dequy($categoty,$id,$text."&#160;&#160;&#160;&#160;&#160;&#160;&#160;");
+				            }
+				          }
+				         } 
+		              ?>
 						<ul class="nav navbar-nav pull-right">
 							<li class="dropdown"><a href="product.php">Sản phẩm</a>
 								<!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"></a> -->
 								<ul class="dropdown-menu">
-									<li class="dropdown-submenu">
-										<a href="product_man.php">Thời trang nam</a>
-										<ul class="dropdown-menu">
-											<?php foreach ($man as $cat) {?>
-										<li><a href="category.php?id=<?php echo $cat['id'] ?>"><?php echo $cat['name'] ?></a></li>
-											<?php } ?>
-										</ul>
-									</li>
-									<li class="dropdown-submenu">
-										<a href="product_woman.php">Thời trang nữ</a>
-										<ul class="dropdown-menu">
-											<?php foreach ($woman as $cat) {?>
-										<li><a href="category.php?id=<?php echo $cat['id'] ?>"><?php echo $cat['name'] ?></a></li>
-											<?php } ?>
-										</ul>
-									</li>							
+									<?php dequy($categoty); ?>						
 								</ul>
 							</li>
 							<li><a href="blog.php">Blog</a></li>
@@ -140,4 +142,3 @@ include "config/function_sent_mail.php";
 				</div><!--/.container-fluid --> 
 			</nav>
 		</header>
-		

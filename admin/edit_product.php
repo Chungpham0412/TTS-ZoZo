@@ -4,13 +4,19 @@
   $categoryy= mysqli_query($connection,"SELECT * FROM category where parent_id != 0 && status = 1");
   $sizes = mysqli_query($connection,"SELECT * FROM attribute WHERE type= 'size' ");
   $colors = mysqli_query($connection,"SELECT * FROM attribute WHERE type= 'color' ");
+  $category = mysqli_query($connection,"SELECT * FROM category");
   $img_elses = mysqli_query($connection,"SELECT * FROM product_image WHERE product_id = $id");
   $attr = mysqli_query($connection,"SELECT attribute_id FROM product_attribute WHERE product_id = $id");
    
         $arrayCheck = [];
           foreach ($attr as $at) {
-
             $arrayCheck[] = $at['attribute_id'];
+        };
+  $cate = mysqli_query($connection,"SELECT category_id FROM product_category WHERE product_id = $id");
+   
+        $arrayChecks = [];
+          foreach ($cate as $c) {
+            $arrayChecks[] = $c['category_id'];
         }
   ?>
 
@@ -19,7 +25,15 @@
     <section class="content-header">
       <h1>Sửa sản phẩm</h1>
     </section>
-
+    <?php 
+      if (in_array("edit_p", $decode)) {
+        // echo "Trong mảng có chứa freetuts.net";
+      }else{
+        echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+        window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+        </script>";
+      }
+    ?>
     <!-- Main content -->
     <section class="content">
 
@@ -79,13 +93,18 @@
 
            //Update dữ liệu
 
-           $sql = "UPDATE `product` SET `name` = '$name', `image` = '$image', `content` = ' $content ',`category_id`='$category_id', `price` = ' $price', `sale_price` = ' $sale_price', `status` = '$status' WHERE `product`.`id` = $id";
+           $sql = "UPDATE `product` SET `name` = '$name', `image` = '$image', `content` = ' $content ', `price` = ' $price', `sale_price` = ' $sale_price', `status` = '$status' WHERE `product`.`id` = $id";
           if (mysqli_query($connection,$sql)) {
             // echo " thanh cong"; 
 
             $deleteAttr = mysqli_query($connection,"DELETE FROM product_attribute WHERE product_id = $id");
+            $deleteCate = mysqli_query($connection,"DELETE FROM product_category WHERE product_id = $id");
          
-
+            if(isset($_POST['category_id'])){
+              foreach ($category_id as $cat) {
+               $updateCate = mysqli_query($connection,"INSERT INTO `product_category` (`product_id`, `category_id`) VALUES ('$id', '$cat')");
+              }
+            }
             if(isset($_POST['color'])){
               foreach ($color as $col) {
                $updateColor = mysqli_query($connection,"INSERT INTO `product_attribute` (`product_id`, `attribute_id`) VALUES ('$id', '$col')");
@@ -139,16 +158,16 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label for="">Danh mục</label>
-            <select name="category_id" class="form-control" required="required">
-              <option value="">Chọn danh mục</option>
-              <?php foreach ($categoryy as $ca) { 
-                $selected=$ca['id']==$pro['category_id'] ? 'selected' : '';
-                ?>
-                <option <?php echo $selected ?> value="<?php echo $ca['id']  ?>"><?php echo $ca['name'] ?></option>
 
-              <?php } ?>
-            </select>
+            <label for="">Danh mục</label>
+              <?php foreach ($category as $ca ) {  ?>
+              <div class="checkbox">
+                <label>
+                  <input <?php echo in_array($ca['id'], $arrayChecks) ? 'checked' : '' ; ?>  type="checkbox" name="category_id[]" value="<?php echo $ca['id'] ?>">
+                  <?php echo $ca['name'] ?>
+                </label>
+              </div>
+            <?php } ?>
           </div>
         </div>
         <div class="col-md-4">

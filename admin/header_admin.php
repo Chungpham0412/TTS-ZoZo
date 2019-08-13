@@ -142,6 +142,18 @@
                 <li><a href="DS_Account_admin.php"><i class="fa fa-circle-o"></i>Danh sách</a></li>
               </ul>
             </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-address-card-o"></i> <span>QL Group_Admin</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="add_group.php"><i class="fa fa-circle-o"></i>Thêm mới</a></li>
+                <li><a href="DS_Permissions.php"><i class="fa fa-circle-o"></i>Danh sách</a></li>
+              </ul>
+            </li>
            <!--  <li class="">
               <a href="#">
                 <i class="fa fa-address-card-o"></i> <span>QL Admin</span>
@@ -152,3 +164,15 @@
         </section>
         <!-- /.sidebar -->
       </aside>
+
+
+      <?php 
+      if(isset($_SESSION['login_admin'])){
+        $admin = $_SESSION['login_admin'];
+        $id = $admin['level'];
+        $sql = mysqli_query($connection,"SELECT * FROM permission WHERE id = $id");
+        foreach ($sql as $value) {
+          $decode=json_decode($value['permissions'],true);
+        }
+      }
+      ?>

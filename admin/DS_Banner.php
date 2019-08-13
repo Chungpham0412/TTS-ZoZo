@@ -12,7 +12,15 @@
     }
   }
   ?>
-  
+  <?php 
+    if (in_array("list_b", $decode)) {
+      // echo "Trong mảng có chứa freetuts.net";
+    }else{
+      echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+      window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+      </script>";
+    }
+  ?>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">

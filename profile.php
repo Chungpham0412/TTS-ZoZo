@@ -33,6 +33,7 @@ $row = mysqli_fetch_assoc($profile);
 				</tr> -->
 			</table>
 			<a href="profile_edit.php" class="btn btn-primary">Sửa thông tin</a>
+			<a href="profile_edit_pass.php" class="btn btn-primary">Đổi mật khẩu</a>
 		</div>
 	</div>
 </div>

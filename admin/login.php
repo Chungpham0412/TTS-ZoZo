@@ -8,7 +8,7 @@
      $password = $_POST['password'];
 
 
-     $check_email = mysqli_query($connection,"SELECT * FROM account WHERE email = '$email' AND level = 1");
+     $check_email = mysqli_query($connection,"SELECT * FROM account WHERE email = '$email' AND level != 0");
      if (mysqli_num_rows($check_email)==1) {
          $admin = mysqli_fetch_assoc($check_email);
          if (password_verify($password, $admin['password'])) {
@@ -21,6 +21,7 @@
      }else{
        $errors['email']="Tài khoản không tồn tại";
      }
+
      // $sql= mysqli_query($connection,"SELECT * FROM `account` WHERE `email` = '$email' AND `password` = '$password'");
 
      // $row= mysqli_fetch_assoc($sql);

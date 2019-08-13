@@ -17,7 +17,15 @@
 
     <!-- Main content -->
     <section class="content">
-
+ <?php 
+      if (in_array("order", $decode)) {
+        // echo "Trong mảng có chứa freetuts.net";
+      }else{
+        echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+        window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+        </script>";
+      }
+    ?>
       <!-- Default box -->
       <div class="box">
         <div class="box-body">

@@ -1,4 +1,5 @@
 <?php include "header.php"; 
+include "config/function_sent_mail.php";
 	$carts= isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 ?>
 <br>
@@ -40,11 +41,11 @@
 								include "email.php";
 								if(sentMail($od['email'],$od['name'],$html)){
 									unset($_SESSION['cart']);
-									echo "<script type='text/javascript'>alert('Bạn đã đặt hàng thành công. Cảm ơn bạn đã tin tưởng Flatize Shop.');
-									window.location.assign('http://localhost/%C4%90%E1%BB%93%20%C3%81n%20PHP/index.php');
-									</script>";
 									// echo "<script type='text/javascript'><div>OnClick='return confirm('blah blah');</div></script>";
 									// header('location: index.php');
+									echo "<script type='text/javascript'>alert('Bạn đã đặt hàng thành công. Cảm ơn bạn đã tin tưởng Flatize Shop.');
+									window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/index.php');
+									</script>";
 								}else{
 									echo "Gửi mail không thành công";
 								}

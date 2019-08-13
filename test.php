@@ -1,72 +1,31 @@
-<!DOCTYPE html>
-<?php
-if(isset($_POST['abc'])){
-    // Authorisation details.
-    $username = $_POST['username'];
-    $hash = $_POST['hash'];
-
-    // Config variables. Consult http://api.txtlocal.com/docs for more info.
-    $test = "0";
-
-    // Data for text message. This is the text message data.
-    $sender = $_POST['sender']; // This is who the message appears to be from.
-    $numbers = $_POST['num']; // A single number or a comma-seperated list of numbers
-    $message = $_POST['mess'];
-    // 612 chars or less
-    // A single number or a comma-seperated list of numbers
-    $message = urlencode($message);
-    $data = "username=".$username."&hash=".$hash."&message=".$message."&sender=".$sender."&numbers=".$numbers."&test=".$test;
-    $ch = curl_init('http://api.txtlocal.com/send/?');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch); // This is the result from the API
-    curl_close($ch);
-    echo($result);
-}
+<?php include "header.php";
+$id = $_SESSION['login']['id'];
+$profile = mysqli_query($connection,"SELECT * FROM account WHERE id = $id");
+$row = mysqli_fetch_assoc($profile);
 ?>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <link rel="stylesheet" href="">
-</head>
-<body>
-    <form action="test.php" method="POST" role="form">
+<br>
+<div class="container" style="width: 50%">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Thông tin tài khoản</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table table-hover">
+        <tr>
+          <td>passss</td>
+          <td><?php echo $row['password'] ?></td>
+        </tr>
+        <tr>
 
-       <table align="center">
-           <tr>
-               <td>Tên</td>
-               <td><input type="text" name="username" class="form-control"></td>
-           </tr>
-           <tr>
-               <td>hash</td>
-               <td><input type="text" name="hash" class="form-control"></td>
-           </tr>
-           <tr>
-               <td>sender</td>
-               <td><input type="text" name="sender" class="form-control"></td>
-           </tr>
-           <tr>
-               <td>num</td>
-               <td><input type="text" name="num" class="form-control"></td>
-           </tr>
-           <tr>
-               <td>mess</td>
-               <td><textarea name="mess"></textarea></td>
-           </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" name="abc" value="send">
-                    
-                </td>
-            </tr>
-       </table>
-    
-        
-    
-    </form>
-</body>
-</html>
+<!--        <tr>
+          <td>password</td>
+          <td><?php //echo $row['password'] ?></td>
+        </tr> -->
+      </table>
+      <a href="profile_edit1.php" class="btn btn-primary">Sửa thông tin</a>
+    </div>
+  </div>
+</div>
+
+
+<?php include "footer_cart.php" ?>

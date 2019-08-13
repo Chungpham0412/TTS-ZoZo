@@ -1,11 +1,33 @@
   <?php
   include "header_admin.php";
   $categoryy= mysqli_query($connection,"SELECT * FROM category where parent_id != 0 && status = 1");
-  $size = mysqli_query($connection,"SELECT * FROM attribute WHERE type= 'size' ");
-  $color = mysqli_query($connection,"SELECT * FROM attribute WHERE type= 'color' ");
+  $size = mysqli_query($connection,"SELECT * FROM attribute WHERE type = 'size' ");
+  $color = mysqli_query($connection,"SELECT * FROM attribute WHERE type = 'color' ");
   ?>
 
+
   <div class="content-wrapper">
+    <?php 
+    if(isset($_SESSION['login_admin'])){
+      $admin = $_SESSION['login_admin'];
+      $id = $admin['level'];
+      $sql = mysqli_query($connection,"SELECT * FROM permission WHERE id = $id");
+        // $per=[];
+      foreach ($sql as $value) {
+          // print_r($value['permissions']);
+          // $per[]=json_decode($value['permissions'],true);
+        $decode=json_decode($value['permissions'],true);
+      }
+
+      if (in_array("add_p", $decode)) {
+        // echo "Trong mảng có chứa freetuts.net";
+      }else{
+        echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+        window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+        </script>";
+      }
+    }
+    ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>Thêm mới sản phẩm</h1>
@@ -39,13 +61,21 @@
                $image = $f_name;
              }
            }
-          
+          // echo "<pre>";
+          // print_r($_POST);
+          // echo "</pre>"; die;
 
-           $sql = "INSERT INTO `product` ( `name`, `image`, `content`, `category_id`, `price`, `sale_price`, `status`) VALUES ('$name', '$image', '$content', '$category_id', '$price', '$sale_price', '$status')"   ;
+           $sql = "INSERT INTO `product` ( `name`, `image`, `content`, `price`, `sale_price`, `status`) VALUES ('$name', '$image', '$content', '$price', '$sale_price', '$status')"   ;
 
            if (mysqli_query($connection,$sql)) {
 
             $product_id = mysqli_insert_id($connection);
+            //add category
+             if (count($category_id)>0) {
+              foreach ($category_id as $cate) {
+                mysqli_query($connection, "INSERT INTO product_category VALUES ($product_id,$cate) ");
+              }
+            }
               //add size
             if (count($size)>0) {
               foreach ($size as $ss) {
@@ -102,13 +132,35 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
+              <?php 
+          $cate = mysqli_query($connection,"SELECT * FROM `category`");
+          $categoty=array();
+          // $ca = mysqli_fetch_assoc($cate);
+          while ($row = mysqli_fetch_assoc($cate)) {
+            $categoty[]=$row;
+          }
+          function dequy($categoty,$parent_id=0,$text=""){
+          foreach ($categoty as $key => $value) {
+            if($value['parent_id']==$parent_id){
+              echo '<input name="category_id[]" type="checkbox" value="'.$value['id'].'">';
+                echo $text.$value['name'];
+              echo '<br/>';
+              $id = $value['id'];
+              unset($categoty[$key]);
+              dequy($categoty,$id,$text.$value['name']." > ");
+            }
+          }
+         } 
+              ?>
               <label for="">Danh mục</label>
-              <select name="category_id" class="form-control" required="required">
-                <option value="">Chọn danh mục</option>
-                <?php foreach ($categoryy as $c) : ?>
-                  <option value="<?php echo $c['id']  ?>"><?php echo $c['name'] ?></option>
-                <?php endforeach; ?>
-              </select>
+              <!-- <select name="category_id" class="form-control" required="required"> -->
+                <div class="checkbox">
+                  <label>
+                    <?php 
+                          dequy($categoty);
+                     ?>
+                  </label>
+                </div>
             </div>
           </div>
           <div class="col-md-4">

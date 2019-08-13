@@ -50,7 +50,7 @@
 						if (!$errors) {
 							$passHash = password_hash("$password", PASSWORD_BCRYPT);
 
-							$sql="INSERT INTO `account`(`name`,`email`,`phone`,`password`,`address`,`level`) VALUES('$name','$email','$phone','$passHash','$address',0)";
+							$sql="INSERT INTO `account`(`name`,`email`,`phone`,`password`,`address`,`level`) VALUES('$name','$email','$phone','$passHash','$address','19')";
 							if (mysqli_query($connection,$sql)) {
 								if (isset($_POST['register'])) {
 								$sql_email=mysqli_query($connection,"SELECT * FROM account WHERE email = '$email' AND level = 0 ");

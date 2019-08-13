@@ -32,11 +32,13 @@
 			if ($_POST['address'] == '') {
 				$errors['address']='Hãy nhập địa chỉ';
 			}
+			$level= isset($_POST['level']) ? $_POST['level'] : '';
+			
 
 			if (!$errors) {
 				$passHash = password_hash("$password", PASSWORD_BCRYPT);
 
-				$sql="INSERT INTO `account`(`name`,`email`,`phone`,`password`,`address`,`level`) VALUES('$name','$email','$phone','$passHash','$address',1)";
+				$sql="INSERT INTO `account`(`name`,`email`,`phone`,`password`,`address`,`level`) VALUES('$name','$email','$phone','$passHash','$address','$level')";
 				if (mysqli_query($connection,$sql)) {
 					header('location: DS_Account_admin.php');
 				}else{
@@ -46,7 +48,6 @@
 		}
 
  ?>
-
   <div class="content-wrapper ">
     <!-- Content Header (Page header) -->
     		<section class="content-header">
@@ -114,7 +115,25 @@
 							</div>
 						<?php } ?>
     		    	</div>
-    		    
+
+
+
+
+<?php 
+
+$group = mysqli_query($connection,"SELECT * FROM permission");
+
+ ?>
+
+
+    		    	<div class="form-group">
+    		    		<label for="">Nhóm tài khoản</label>
+    		    		 <select name="level"class="form-control">
+    		    		 	<?php foreach ($group as $gr) {?>
+    		    		 	<option value=<?php echo $gr['id']?> ><?php echo $gr['name'] ?></option>
+    		    		 	<?php } ?>
+    		    		 </select>
+    		    	</div>
     		    	<button type="submit" name="dangki" class="btn btn-primary">Đăng kí</button>
     		    </form>
     		    </div>

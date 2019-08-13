@@ -11,7 +11,17 @@
     }
   }
   ?>
- 
+  <?php 
+
+    if (in_array("list_cate", $decode)) {
+      // echo "Trong mảng có chứa freetuts.net";
+    }else{
+      echo "<script type='text/javascript'>alert('Bạn đ** đủ quyền để vào');
+      window.location.assign('http://localhost:88/%C4%90%E1%BB%93%20%C3%81n%20PHP/admin/index.php');
+      </script>";
+    }
+  
+  ?>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -51,11 +61,16 @@
                 <td><?php echo $cat['id'] ?></td>
                 <td><?php echo $cat['name'] ?></td>
                 <td><?php if($cat['parent_id']==1): ?>
-                    <span>Thời trang nam</span>
+                    <!-- <span>Thời trang nam</span> -->
+                    <span><?php echo $cat['parent_id'] ?></span>
                     <?php elseif($cat['parent_id']==2): ?>
-                    <span>Thời trang nữ</span>
+                    <span><?php echo $cat['parent_id'] ?></span>
+                    <!-- <span>Thời trang nữ</span> -->
+                    <?php elseif($cat['parent_id']==0): ?>
+                    <span>Flatize Shop</span>
                     <?php else: ?>
-                      <span>Flatize Shop</span>
+                      <span><?php echo $cat['parent_id'] ?></span>
+                      <!-- <span>Flatize Shop</span> -->
                     <?php endif; ?>
                 </td>
                 <td><?php if($cat['status']==1): ?>
